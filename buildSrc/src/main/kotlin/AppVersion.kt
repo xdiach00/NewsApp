@@ -1,6 +1,6 @@
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import org.gradle.api.Project
-import kotlinx.serialization.json.*
 
 @Serializable
 data class AppVersion(
