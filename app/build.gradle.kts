@@ -7,12 +7,29 @@ android {
     namespace = "com.xdiach.newsapp"
     compileSdk = ProjectConfig.compileSdk
 
+    signingConfigs {
+        loadSigningConfigurations().forEach { signing ->
+            (
+                    (if (names.contains(signing.id)) {
+                        getByName(signing.id)
+                    } else {
+                        create(signing.id)
+                    }) as com.android.build.gradle.internal.dsl.SigningConfig).apply {
+                keyAlias = signing.keyAlias
+                keyPassword = signing.keyPassword
+                storeFile = rootProject.file(signing.storeFile)
+                storePassword = signing.storePassword
+            }
+
+        }
+    }
+
     defaultConfig {
         applicationId = "com.xdiach.newsapp"
         minSdk = ProjectConfig.minSdk
         targetSdk = ProjectConfig.targetSdk
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = loadAppVersion().versionCode()
+        versionName = loadAppVersion().shortVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,11 +39,22 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            signingConfig = signingConfigs["release"]
+            applicationIdSuffix = ""
+            versionNameSuffix = ""
+            isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            signingConfig = signingConfigs["debug"]
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-DEBUG"
+            isMinifyEnabled = false
         }
     }
     compileOptions {

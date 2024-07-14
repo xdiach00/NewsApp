@@ -1,0 +1,16 @@
+[
+  {
+    "id": "release",
+    "storeFile": "E:\\Work\\SigningKeys\\Personal\\release.keystore.jks",
+    "storePassword": "goTD8m4s(]T8",
+    "keyAlias": "release",
+    "keyPassword": "goTD8m4s(]T8"
+  },
+  {
+    "id": "debug",
+    "storeFile": "E:\\Work\\SigningKeys\\Personal\\release.keystore.jks",
+    "storePassword": "goTD8m4s(]T8",
+    "keyAlias": "release",
+    "keyPassword": "goTD8m4s(]T8"
+  }
+]
